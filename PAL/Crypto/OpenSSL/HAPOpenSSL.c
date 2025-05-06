@@ -515,7 +515,7 @@ void HAP_chacha20_poly1305_update_dec(
         int ret = EVP_DecryptInit_ex(handle->ctx, EVP_chacha20_poly1305(), 0, 0, 0);
         HAPAssert(ret == 1);
         ret = EVP_CIPHER_CTX_ctrl(handle->ctx, EVP_CTRL_AEAD_SET_IVLEN, n_len, NULL);
-        HAPAssert(ret == 1);
+        HAPAssert(ret == 1); // I think this is failing when using the static setup code due to EVP_CIPHER_CTX_ctrl previously using the 8-bit nonce, but now it's the IETF 12-bit nonce
         ret = EVP_DecryptInit_ex(handle->ctx, NULL, NULL, k, n);
         HAPAssert(ret == 1);
     }
