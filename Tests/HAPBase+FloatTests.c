@@ -106,7 +106,6 @@ HAP_DIAGNOSTIC_IGNORED_CLANG("-Wfloat-equal")
     } while (0)
 
 #define INF (1.0F / 0.0F)
-#define NAN (0.0F / 0.0F)
 
 int main() {
     // Zero.
