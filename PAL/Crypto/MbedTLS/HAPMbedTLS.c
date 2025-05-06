@@ -24,17 +24,17 @@
 
 static void sha512_init(mbedtls_sha512_context* ctx) {
     mbedtls_sha512_init(ctx);
-    int ret = mbedtls_sha512_starts_ret(ctx, 0);
+    int ret = mbedtls_sha512_starts(ctx, 0);
     HAPAssert(ret == 0);
 }
 
 static void sha512_update(mbedtls_sha512_context* ctx, const uint8_t* data, size_t size) {
-    int ret = mbedtls_sha512_update_ret(ctx, data, size);
+    int ret = mbedtls_sha512_update(ctx, data, size);
     HAPAssert(ret == 0);
 }
 
 static void sha512_final(mbedtls_sha512_context* ctx, uint8_t md[SHA512_BYTES]) {
-    int ret = mbedtls_sha512_finish_ret(ctx, md);
+    int ret = mbedtls_sha512_finish(ctx, md);
     HAPAssert(ret == 0);
     mbedtls_sha512_free(ctx);
 }
@@ -428,11 +428,11 @@ void HAP_srp_proof_m2(
 void HAP_sha1(uint8_t md[SHA1_BYTES], const uint8_t* data, size_t size) {
     mbedtls_sha1_context ctx;
     mbedtls_sha1_init(&ctx);
-    int ret = mbedtls_sha1_starts_ret(&ctx);
+    int ret = mbedtls_sha1_starts(&ctx);
     HAPAssert(ret == 0);
-    ret = mbedtls_sha1_update_ret(&ctx, data, size);
+    ret = mbedtls_sha1_update(&ctx, data, size);
     HAPAssert(ret == 0);
-    ret = mbedtls_sha1_finish_ret(&ctx, md);
+    ret = mbedtls_sha1_finish(&ctx, md);
     HAPAssert(ret == 0);
     mbedtls_sha1_free(&ctx);
 }
@@ -440,11 +440,11 @@ void HAP_sha1(uint8_t md[SHA1_BYTES], const uint8_t* data, size_t size) {
 void HAP_sha256(uint8_t md[SHA256_BYTES], const uint8_t* data, size_t size) {
     mbedtls_sha256_context ctx;
     mbedtls_sha256_init(&ctx);
-    int ret = mbedtls_sha256_starts_ret(&ctx, 0);
+    int ret = mbedtls_sha256_starts(&ctx, 0);
     HAPAssert(ret == 0);
-    ret = mbedtls_sha256_update_ret(&ctx, data, size);
+    ret = mbedtls_sha256_update(&ctx, data, size);
     HAPAssert(ret == 0);
-    ret = mbedtls_sha256_finish_ret(&ctx, md);
+    ret = mbedtls_sha256_finish(&ctx, md);
     HAPAssert(ret == 0);
     mbedtls_sha256_free(&ctx);
 }
