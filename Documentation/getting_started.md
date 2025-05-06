@@ -8,8 +8,8 @@
 - Download and install [Homebrew](https://brew.sh)
 
 ```sh
-brew install openssl@1.1
-brew install mbedtls --HEAD
+brew install openssl
+brew install mbedtls
 brew install wget
 brew install qemu
 brew install --cask docker
