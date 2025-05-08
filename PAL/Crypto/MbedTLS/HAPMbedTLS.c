@@ -119,9 +119,9 @@ void HAP_X25519_scalarmult(
         int ret = mbedtls_ecp_read_key(MBEDTLS_ECP_DP_CURVE25519, &our_key, n, X25519_SCALAR_BYTES);
         HAPAssert(ret == 0);
         WITH_ECP_KEYPAIR(their_key, {
-            ret = mbedtls_ecp_group_load(&their_key.grp, MBEDTLS_ECP_DP_CURVE25519);
+            ret = mbedtls_ecp_group_load(&their_key.MBEDTLS_PRIVATE(grp), MBEDTLS_ECP_DP_CURVE25519);
             HAPAssert(ret == 0);
-            ret = mbedtls_ecp_point_read_binary(&their_key.grp, &their_key.Q, p, X25519_BYTES);
+            ret = mbedtls_ecp_point_read_binary(&their_key.MBEDTLS_PRIVATE(grp), &their_key.MBEDTLS_PRIVATE(Q), p, X25519_BYTES);
             HAPAssert(ret == 0);
             WITH_ECDH(ecdh, {
                 ret = mbedtls_ecdh_get_params(&ecdh, &their_key, MBEDTLS_ECDH_THEIRS);
@@ -141,10 +141,10 @@ void HAP_X25519_scalarmult_base(uint8_t r[X25519_BYTES], const uint8_t n[X25519_
     WITH_ECP_KEYPAIR(key, {
         int ret = mbedtls_ecp_read_key(MBEDTLS_ECP_DP_CURVE25519, &key, n, X25519_SCALAR_BYTES);
         HAPAssert(ret == 0);
-        ret = mbedtls_ecp_mul(&key.grp, &key.Q, &key.d, &key.grp.G, blinding_rng, NULL);
+        ret = mbedtls_ecp_mul(&key.MBEDTLS_PRIVATE(grp), &key.MBEDTLS_PRIVATE(Q), &key.MBEDTLS_PRIVATE(d), &key.MBEDTLS_PRIVATE(grp).G, blinding_rng, NULL);
         HAPAssert(ret == 0);
         size_t out_len;
-        ret = mbedtls_ecp_point_write_binary(&key.grp, &key.Q, MBEDTLS_ECP_PF_UNCOMPRESSED, &out_len, r, X25519_BYTES);
+        ret = mbedtls_ecp_point_write_binary(&key.MBEDTLS_PRIVATE(grp), &key.MBEDTLS_PRIVATE(Q), MBEDTLS_ECP_PF_UNCOMPRESSED, &out_len, r, X25519_BYTES);
         HAPAssert(ret == 0);
         HAPAssert(out_len == X25519_BYTES);
     });
